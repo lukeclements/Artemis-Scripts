@@ -21,11 +21,11 @@ picam2.set_controls({"NoiseReductionMode": controls.draft.NoiseReductionModeEnum
 picam2.start()
 
 # Check if a directory named 'images' exists, if not, create it
-if not os.path.exists('images'):
-    os.makedirs('images')
+if not os.path.exists('/home/pi/images'):
+    os.makedirs('/home/pi/images')
 
 # Create a timestamp for uniquely identifying the photos captured
 timestamp = time.strftime("%Y%m%d-%H%M%S")
 
 # Capture the photo and save it with a unique name (timestamp)
-picam2.capture_file(f"images/{timestamp}.jpg")
+picam2.capture_file(f"/home/pi/images/{timestamp}.jpg")
