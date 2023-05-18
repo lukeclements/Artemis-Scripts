@@ -1,21 +1,31 @@
-from picamera2 import Picamera2
-from libcamera import controls
-import time
-import os
+# Import required modules
+from picamera2 import Picamera2        # A Python interface to the Pi Camera Module
+from libcamera import controls         # The controls module of libcamera provides support for manipulating camera parameters
+import time                            # Provides various time-related functions
+import os                              # Provides functions for interacting with the operating system
 
+# Create an instance of the Picamera2
 picam2 = Picamera2()
-picam2.options["quality"] = 95 # JPEG quality level, where 0 is the worst quality and 95 is best.
 
-picam2.set_controls({"AwbEnable": True})
-picam2.set_controls({"AeEnable": True})
+# Set JPEG quality level, where 0 is the worst quality and 95 is best.
+picam2.options["quality"] = 95 
+
+# Set camera controls for automatic white balance and automatic exposure to True
+picam2.set_controls({"AwbEnable": True}) 
+picam2.set_controls({"AeEnable": True}) 
+
+# Set the Noise Reduction Mode to High Quality
 picam2.set_controls({"NoiseReductionMode": controls.draft.NoiseReductionModeEnum.HighQuality})
 
+# Start the camera
 picam2.start()
 
-# Create a directory named 'images' if it does not exist
+# Check if a directory named 'images' exists, if not, create it
 if not os.path.exists('images'):
     os.makedirs('images')
 
-# Capture the photo and save it with a name as timestamp
+# Create a timestamp for uniquely identifying the photos captured
 timestamp = time.strftime("%Y%m%d-%H%M%S")
+
+# Capture the photo and save it with a unique name (timestamp)
 picam2.capture_file(f"images/{timestamp}.jpg")
