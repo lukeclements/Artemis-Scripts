@@ -7,8 +7,7 @@ import os                              # Provides functions for interacting with
 # Create an instance of the Picamera2
 picam2 = Picamera2()
 
-# Set JPEG quality level, where 0 is the worst quality and 95 is best.
-picam2.options["quality"] = 95 
+picam2.options["compress_level"] = 9 # PNG compression level, where 0 gives no compression, 1 is the fastest that actually does any compression, and 9 is the slowest.
 
 # Set camera controls for automatic white balance and automatic exposure to True
 picam2.set_controls({"AwbEnable": True}) 
@@ -28,4 +27,4 @@ if not os.path.exists('/home/pi/images'):
 timestamp = time.strftime("%Y%m%d-%H%M%S")
 
 # Capture the photo and save it with a unique name (timestamp)
-picam2.capture_file(f"/home/pi/images/{timestamp}.jpg")
+picam2.capture_file(f"/home/pi/images/{timestamp}.png")
